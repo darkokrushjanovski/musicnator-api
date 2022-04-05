@@ -52,6 +52,6 @@ public class CategoryController {
 
   @GetMapping
   public List<CategoryDto> getCategories() {
-    return service.getCategories().stream().map(mapper::map).collect(Collectors.toList());
+    return service.getCategories().stream().map(mapper::map).toList();
   }
 }

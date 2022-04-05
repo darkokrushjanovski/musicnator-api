@@ -1,7 +1,7 @@
 package com.krushjanovski.musicnator.entity;
 
-import javax.persistence.ManyToMany;
 import java.util.List;
+import javax.persistence.ManyToMany;
 
 @javax.persistence.Entity
 public class Category extends Entity {

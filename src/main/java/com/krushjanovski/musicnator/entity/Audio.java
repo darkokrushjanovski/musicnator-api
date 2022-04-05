@@ -1,9 +1,9 @@
 package com.krushjanovski.musicnator.entity;
 
+import java.util.List;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import java.util.List;
 
 @javax.persistence.Entity
 public class Audio extends Entity {
@@ -16,9 +16,7 @@ public class Audio extends Entity {
       joinColumns = @JoinColumn(name = "audio_id"),
       inverseJoinColumns = @JoinColumn(name = "category_id"))
   private List<Category> categories;
-
-  //TODO: music file
-
+  private Long resourceId;
 
   public String getTitle() {
     return title;
@@ -44,6 +42,15 @@ public class Audio extends Entity {
 
   public Audio setCategories(List<Category> categories) {
     this.categories = categories;
+    return this;
+  }
+
+  public Long getResourceId() {
+    return resourceId;
+  }
+
+  public Audio setResourceId(Long resourceId) {
+    this.resourceId = resourceId;
     return this;
   }
 }

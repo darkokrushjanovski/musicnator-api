@@ -23,7 +23,7 @@ public class JwtUtils {
         LocalDateTime.now().plusDays(1).atZone(ZoneId.systemDefault()).toInstant());
     return Jwts.builder().setSubject(user.getUsername()).setIssuedAt(issuedAt)
         .setExpiration(expiresAt).claim("roles", user.getAuthorities().stream().map(
-            GrantedAuthority::getAuthority).collect(Collectors.toList())).signWith(
+            GrantedAuthority::getAuthority).toList()).signWith(
             SignatureAlgorithm.HS512, secretKey).compact();
   }
 
