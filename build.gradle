@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.krushjanovski'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_11;
+sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
@@ -20,9 +20,4 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
 }

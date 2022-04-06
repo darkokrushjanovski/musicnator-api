@@ -1,6 +1,7 @@
 package com.krushjanovski.musicnator.dto;
 
 public class RoleDto extends BaseDto {
+
   private String name;
 
   public String getName() {

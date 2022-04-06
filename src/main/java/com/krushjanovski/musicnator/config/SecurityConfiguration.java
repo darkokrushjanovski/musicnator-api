@@ -40,12 +40,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
 
     http.exceptionHandling(
-        (exceptions) -> exceptions.authenticationEntryPoint((request, response, ex) -> {
-          response.sendError(
-              HttpServletResponse.SC_UNAUTHORIZED,
-              ex.getMessage()
-          );
-        }));
+        (exceptions) -> exceptions.authenticationEntryPoint(
+            (request, response, ex) -> response.sendError(
+                HttpServletResponse.SC_UNAUTHORIZED,
+                ex.getMessage()
+            )));
 
     http.authorizeRequests()
         .antMatchers("/auth/**").permitAll()

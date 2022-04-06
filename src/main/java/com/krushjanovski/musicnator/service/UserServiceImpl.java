@@ -11,23 +11,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-  private final UserRepository userRepository;
+  private final UserRepository repository;
   private final RoleService roleService;
   private final PasswordEncoder passwordEncoder;
 
-  public UserServiceImpl(UserRepository userRepository, RoleService roleService,
+  public UserServiceImpl(UserRepository repository, RoleService roleService,
       PasswordEncoder passwordEncoder) {
-    this.userRepository = userRepository;
+    this.repository = repository;
     this.roleService = roleService;
     this.passwordEncoder = passwordEncoder;
   }
 
   @Override
   public void createUser(String firstName, String lastName, String password, String email,
-      String phoneNumber, Long roleId) {
-    var role = roleService.getRole(roleId);
+      String phoneNumber, String roleUuid) {
+    var role = roleService.getRole(roleUuid);
 
-    userRepository.findByEmail(email).ifPresent((user) -> {
+    repository.findByEmail(email).ifPresent((user) -> {
       throw new ConflictException(String.format("Email %s is already taken", email));
     });
 
@@ -35,31 +35,31 @@ public class UserServiceImpl implements UserService {
         .setPassword(passwordEncoder.encode(password))
         .setPhoneNumber(phoneNumber).setRole(role);
 
-    userRepository.save(user);
+    repository.save(user);
   }
 
   @Override
-  public void updateUser(Long id, String firstName, String lastName, String password,
-      String phoneNumber, Long roleId) {
-    var role = roleService.getRole(roleId);
+  public void updateUser(String uuid, String firstName, String lastName, String password,
+      String phoneNumber, String roleUuid) {
+    var role = roleService.getRole(roleUuid);
 
-    var user = getUser(id);
+    var user = getUser(uuid);
     user.setFirstName(firstName).setLastName(lastName).setPhoneNumber(phoneNumber).setRole(role);
     if (password != null && !password.isEmpty()) {
       user.setPassword(passwordEncoder.encode(password));
     }
 
-    userRepository.save(user);
+    repository.save(user);
   }
 
   @Override
-  public User getUser(Long id) {
-    return userRepository.findById(id).orElseThrow(
-        () -> new ResourceNotFoundException(String.format("User with id %d not found", id)));
+  public User getUser(String uuid) {
+    return repository.findById(uuid).orElseThrow(
+        () -> new ResourceNotFoundException(String.format("User with id %s not found", uuid)));
   }
 
   @Override
   public List<User> getUsers() {
-    return userRepository.findAll();
+    return repository.findAll();
   }
 }

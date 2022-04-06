@@ -1,18 +1,17 @@
 package com.krushjanovski.musicnator.service;
 
 import com.krushjanovski.musicnator.entity.User;
-
 import java.util.List;
 
 public interface UserService {
 
   void createUser(String firstName, String lastName, String password, String email,
-      String phoneNumber, Long roleId);
+      String phoneNumber, String roleUuid);
 
-  void updateUser(Long id, String firstName, String lastName, String password, String phoneNumber,
-      Long roleId);
+  void updateUser(String uuid, String firstName, String lastName, String password,
+      String phoneNumber, String roleUuid);
 
-  User getUser(Long id);
+  User getUser(String uuid);
 
   List<User> getUsers();
 }

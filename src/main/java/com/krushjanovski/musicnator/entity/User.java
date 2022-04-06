@@ -1,6 +1,7 @@
 package com.krushjanovski.musicnator.entity;
 
-import javax.persistence.*;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @javax.persistence.Entity
 public class User extends Entity {

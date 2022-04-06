@@ -9,22 +9,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-  private final RoleRepository roleRepository;
+  private final RoleRepository repository;
 
-  public RoleServiceImpl(RoleRepository roleRepository) {
-    this.roleRepository = roleRepository;
+  public RoleServiceImpl(RoleRepository repository) {
+    this.repository = repository;
   }
 
   @Override
-  public Role getRole(Long id) {
-    return roleRepository
-        .findById(id)
+  public void createRole(String name) {
+    Role role = new Role()
+        .setName(name);
+    repository.save(role);
+  }
+
+  @Override
+  public Role getRole(String uuid) {
+    return repository
+        .findById(uuid)
         .orElseThrow(
-            () -> new ResourceNotFoundException(String.format("Role with id %d not found", id)));
+            () -> new ResourceNotFoundException(
+                String.format("Role with uuid %s not found", uuid)));
   }
 
   @Override
   public List<Role> getRoles() {
-    return roleRepository.findAll();
+    return repository.findAll();
   }
 }

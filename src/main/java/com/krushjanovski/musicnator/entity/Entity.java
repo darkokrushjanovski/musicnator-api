@@ -1,36 +1,45 @@
 package com.krushjanovski.musicnator.entity;
 
+import java.time.Instant;
+import java.util.UUID;
+import javax.persistence.EntityListeners;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import java.time.Instant;
-
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class Entity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String uuid;
   @CreatedDate
   private Instant createdAt;
   @CreatedBy
-  private Long createdBy;
+  private String createdBy;
   @LastModifiedDate
   private Instant updatedAt;
   @LastModifiedBy
-  private Long updatedBy;
+  private String updatedBy;
 
-  public Long getId() {
-    return id;
+  @PrePersist
+  private void assignUuid() {
+    if (this.uuid == null) {
+      this.uuid = UUID.randomUUID().toString();
+    }
   }
 
-  public Entity setId(Long id) {
-    this.id = id;
+  public String getUuid() {
+    return uuid;
+  }
+
+  public Entity setUuid(String uuid) {
+    this.uuid = uuid;
     return this;
   }
 
@@ -43,11 +52,11 @@ public class Entity {
     return this;
   }
 
-  public Long getCreatedBy() {
+  public String getCreatedBy() {
     return createdBy;
   }
 
-  public Entity setCreatedBy(Long createdBy) {
+  public Entity setCreatedBy(String createdBy) {
     this.createdBy = createdBy;
     return this;
   }
@@ -61,11 +70,11 @@ public class Entity {
     return this;
   }
 
-  public Long getUpdatedBy() {
+  public String getUpdatedBy() {
     return updatedBy;
   }
 
-  public Entity setUpdatedBy(Long updatedBy) {
+  public Entity setUpdatedBy(String updatedBy) {
     this.updatedBy = updatedBy;
     return this;
   }

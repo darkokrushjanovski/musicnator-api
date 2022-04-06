@@ -35,19 +35,19 @@ public class CategoryController {
     service.createCategory(categoryDto.getName(), categoryDto.getDescription());
   }
 
-  @PutMapping("/{id}")
-  public void updateCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto) {
-    service.updateCategory(id, categoryDto.getName(), categoryDto.getDescription());
+  @PutMapping("/{uuid}")
+  public void updateCategory(@PathVariable String uuid, @RequestBody CategoryDto categoryDto) {
+    service.updateCategory(uuid, categoryDto.getName(), categoryDto.getDescription());
   }
 
-  @DeleteMapping("/{id}")
-  public void deleteCategory(@PathVariable Long id) {
-    service.deleteCategory(id);
+  @DeleteMapping("/{uuid}")
+  public void deleteCategory(@PathVariable String uuid) {
+    service.deleteCategory(uuid);
   }
 
-  @GetMapping("/{id}")
-  public CategoryDto getCategory(@PathVariable Long id) {
-    return mapper.map(service.getCategory(id));
+  @GetMapping("/{uuid}")
+  public CategoryDto getCategory(@PathVariable String uuid) {
+    return mapper.map(service.getCategory(uuid));
   }
 
   @GetMapping

@@ -1,1 +1,1 @@
-docker run --name musicnator-db -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+docker run --name musicnator-db -e POSTGRES_PASSWORD=mysecretpassword -p 5435:5432 -d postgres

@@ -4,16 +4,16 @@ import java.time.Instant;
 
 public class BaseDto {
 
-  private Long id;
+  private String uuid;
   private Instant createdAt;
   private Instant updatedAt;
 
-  public Long getId() {
-    return id;
+  public String getUuid() {
+    return uuid;
   }
 
-  public BaseDto setId(Long id) {
-    this.id = id;
+  public BaseDto setUuid(String uuid) {
+    this.uuid = uuid;
     return this;
   }
 

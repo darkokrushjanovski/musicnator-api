@@ -7,7 +7,7 @@ public class UserDto extends BaseDto {
   private String password;
   private String email;
   private String phoneNumber;
-  private Long roleId;
+  private String roleUuid;
   private RoleDto role;
 
   public String getFirstName() {
@@ -55,12 +55,12 @@ public class UserDto extends BaseDto {
     return this;
   }
 
-  public Long getRoleId() {
-    return roleId;
+  public String getRoleUuid() {
+    return roleUuid;
   }
 
-  public UserDto setRoleId(Long roleId) {
-    this.roleId = roleId;
+  public UserDto setRoleUuid(String roleUuid) {
+    this.roleUuid = roleUuid;
     return this;
   }
 

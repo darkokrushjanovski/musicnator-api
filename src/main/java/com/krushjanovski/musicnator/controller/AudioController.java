@@ -29,28 +29,34 @@ public class AudioController {
 
   @PostMapping
   public void createAudio(@RequestBody AudioDto audioDto) {
-    service.createAudio(audioDto.getTitle(), audioDto.getDescription(), audioDto.getCategoryIds(),
-        audioDto.getAudioResourceId(), audioDto.getImageResourceId());
+    service.createAudio(audioDto.getTitle(), audioDto.getDescription(), audioDto.getCategoryUuids(),
+        audioDto.getAudioResourceUuid(), audioDto.getImageResourceUuid());
   }
 
-  @PutMapping("/{id}")
-  public void updateAudio(@PathVariable Long id, @RequestBody AudioDto audioDto) {
-    service.updateAudio(id, audioDto.getTitle(), audioDto.getDescription(),
-        audioDto.getCategoryIds(), audioDto.getAudioResourceId(), audioDto.getImageResourceId());
+  @PutMapping("/{uuid}")
+  public void updateAudio(@PathVariable String uuid, @RequestBody AudioDto audioDto) {
+    service.updateAudio(uuid, audioDto.getTitle(), audioDto.getDescription(),
+        audioDto.getCategoryUuids(), audioDto.getAudioResourceUuid(),
+        audioDto.getImageResourceUuid());
   }
 
-  @DeleteMapping("/{id}")
-  public void deleteAudio(@PathVariable Long id) {
-    service.deleteAudio(id);
+  @DeleteMapping("/{uuid}")
+  public void deleteAudio(@PathVariable String uuid) {
+    service.deleteAudio(uuid);
   }
 
-  @GetMapping("/{id}")
-  public AudioDto getAudio(@PathVariable Long id) {
-    return mapper.map(service.getAudio(id));
+  @GetMapping("/{uuid}")
+  public AudioDto getAudio(@PathVariable String uuid) {
+    return mapper.map(service.getAudio(uuid));
   }
 
   @GetMapping
   public List<AudioDto> getAudios() {
     return service.getAudios().stream().map(mapper::map).collect(Collectors.toList());
+  }
+
+  @GetMapping("/user/{uuid}")
+  public List<AudioDto> getAudiosByUser(@PathVariable String uuid) {
+    return service.getAudiosByUserUuid(uuid).stream().map(mapper::map).collect(Collectors.toList());
   }
 }

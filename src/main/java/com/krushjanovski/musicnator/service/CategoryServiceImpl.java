@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-  private final CategoryRepository categoryRepository;
+  private final CategoryRepository repository;
 
   public CategoryServiceImpl(
-      CategoryRepository categoryRepository) {
-    this.categoryRepository = categoryRepository;
+      CategoryRepository repository) {
+    this.repository = repository;
   }
 
   @Override
@@ -22,33 +22,38 @@ public class CategoryServiceImpl implements CategoryService {
         .setName(name)
         .setDescription(description);
 
-    categoryRepository.save(category);
+    repository.save(category);
   }
 
   @Override
-  public void updateCategory(Long id, String name, String description) {
-    var category = getCategory(id);
+  public void updateCategory(String uuid, String name, String description) {
+    var category = getCategory(uuid);
     category.setName(name);
     category.setDescription(description);
 
-    categoryRepository.save(category);
+    repository.save(category);
   }
 
   @Override
-  public void deleteCategory(Long id) {
-    var category = getCategory(id);
+  public void deleteCategory(String uuid) {
+    var category = getCategory(uuid);
 
-    categoryRepository.delete(category);
+    repository.delete(category);
   }
 
   @Override
-  public Category getCategory(Long id) {
-    return categoryRepository.findById(id).orElseThrow(
-        () -> new ResourceNotFoundException(String.format("Category with id %d not found", id)));
+  public Category getCategory(String uuid) {
+    return repository.findById(uuid).orElseThrow(
+        () -> new ResourceNotFoundException(String.format("Category with id %s not found", uuid)));
+  }
+
+  @Override
+  public List<Category> getCategoriesByUuid(List<String> categoryUuids) {
+    return repository.findAllById(categoryUuids);
   }
 
   @Override
   public List<Category> getCategories() {
-    return categoryRepository.findAll();
+    return repository.findAll();
   }
 }

@@ -1,6 +1,5 @@
 package com.krushjanovski.musicnator.service;
 
-import com.krushjanovski.musicnator.dto.BaseDto;
 import com.krushjanovski.musicnator.entity.Resource;
 import com.krushjanovski.musicnator.exception.ResourceNotFoundException;
 import com.krushjanovski.musicnator.repository.ResourceRepository;
@@ -9,21 +8,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class UploadServiceImpl implements UploadService {
 
-  private final ResourceRepository resourceRepository;
+  private final ResourceRepository repository;
 
-  public UploadServiceImpl(ResourceRepository resourceRepository) {
-    this.resourceRepository = resourceRepository;
+  public UploadServiceImpl(ResourceRepository repository) {
+    this.repository = repository;
   }
 
   @Override
   public Resource uploadResource(byte[] content) {
     Resource resource = new Resource().setContent(content);
-    return resourceRepository.save(resource);
+    return repository.save(resource);
   }
 
   @Override
-  public Resource getResource(Long id) {
-    return resourceRepository.findById(id).orElseThrow(
-        () -> new ResourceNotFoundException(String.format("Resource with id %d not found", id)));
+  public Resource getResource(String uuid) {
+    return repository.findById(uuid).orElseThrow(
+        () -> new ResourceNotFoundException(
+            String.format("Resource with uuid %s not found", uuid)));
   }
 }

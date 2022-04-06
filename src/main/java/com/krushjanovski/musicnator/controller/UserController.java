@@ -3,11 +3,17 @@ package com.krushjanovski.musicnator.controller;
 import com.krushjanovski.musicnator.dto.UserDto;
 import com.krushjanovski.musicnator.mapper.UserMapper;
 import com.krushjanovski.musicnator.service.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
@@ -25,18 +31,18 @@ public class UserController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void createUser(@RequestBody UserDto userDto) {
     service.createUser(userDto.getFirstName(), userDto.getLastName(), userDto.getPassword(),
-        userDto.getEmail(), userDto.getPhoneNumber(), userDto.getRoleId());
+        userDto.getEmail(), userDto.getPhoneNumber(), userDto.getRoleUuid());
   }
 
-  @PutMapping("/{id}")
-  public void updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
-    service.updateUser(id, userDto.getFirstName(), userDto.getLastName(), userDto.getPassword(),
-        userDto.getPhoneNumber(), userDto.getRoleId());
+  @PutMapping("/{uuid}")
+  public void updateUser(@PathVariable String uuid, @RequestBody UserDto userDto) {
+    service.updateUser(uuid, userDto.getFirstName(), userDto.getLastName(), userDto.getPassword(),
+        userDto.getPhoneNumber(), userDto.getRoleUuid());
   }
 
-  @GetMapping("/{id}")
-  public UserDto getUser(@PathVariable Long id) {
-    return mapper.map(service.getUser(id));
+  @GetMapping("/{uuid}")
+  public UserDto getUser(@PathVariable String uuid) {
+    return mapper.map(service.getUser(uuid));
   }
 
   @GetMapping

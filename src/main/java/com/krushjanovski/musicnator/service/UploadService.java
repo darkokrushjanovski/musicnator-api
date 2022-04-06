@@ -6,5 +6,5 @@ public interface UploadService {
 
   Resource uploadResource(byte[] content);
 
-  Resource getResource(Long id);
+  Resource getResource(String uuid);
 }

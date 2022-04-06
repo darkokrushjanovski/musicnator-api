@@ -12,11 +12,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class AuditingConfiguration {
 
   @Bean
-  public AuditorAware<Long> auditorProvider(AuthService authService) {
+  public AuditorAware<String> auditorProvider(AuthService authService) {
     return new AuditorAwareImpl(authService);
   }
 
-  static class AuditorAwareImpl implements AuditorAware<Long> {
+  static class AuditorAwareImpl implements AuditorAware<String> {
 
     private final AuthService authService;
 
@@ -25,10 +25,10 @@ public class AuditingConfiguration {
     }
 
     @Override
-    public Optional<Long> getCurrentAuditor() {
+    public Optional<String> getCurrentAuditor() {
       return Optional.ofNullable(authService.getAuthenticatedPrincipal())
           .map(authenticatedPrincipal -> authenticatedPrincipal.getUser()
-              .getId());
+              .getUuid());
     }
   }
 }

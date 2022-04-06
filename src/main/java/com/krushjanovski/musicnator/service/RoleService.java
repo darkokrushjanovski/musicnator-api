@@ -5,7 +5,9 @@ import java.util.List;
 
 public interface RoleService {
 
-  Role getRole(Long id);
+  void createRole(String name);
+
+  Role getRole(String uuid);
 
   List<Role> getRoles();
 }

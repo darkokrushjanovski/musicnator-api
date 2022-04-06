@@ -9,6 +9,6 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
 
   @Mapping(target = "password", ignore = true)
-  @Mapping(target = "roleId", ignore = true)
+  @Mapping(target = "roleUuid", ignore = true)
   UserDto map(User user);
 }

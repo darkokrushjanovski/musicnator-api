@@ -6,10 +6,10 @@ public class AudioDto extends BaseDto {
 
   private String title;
   private String description;
-  private List<Long> categoryIds;
+  private List<String> categoryUuids;
   private List<CategoryDto> categories;
-  private Long audioResourceId;
-  private Long imageResourceId;
+  private String audioResourceUuid;
+  private String imageResourceUuid;
 
   public String getTitle() {
     return title;
@@ -29,12 +29,12 @@ public class AudioDto extends BaseDto {
     return this;
   }
 
-  public List<Long> getCategoryIds() {
-    return categoryIds;
+  public List<String> getCategoryUuids() {
+    return categoryUuids;
   }
 
-  public AudioDto setCategoryIds(List<Long> categoryIds) {
-    this.categoryIds = categoryIds;
+  public AudioDto setCategoryUuids(List<String> categoryUuids) {
+    this.categoryUuids = categoryUuids;
     return this;
   }
 
@@ -48,21 +48,21 @@ public class AudioDto extends BaseDto {
     return this;
   }
 
-  public Long getAudioResourceId() {
-    return audioResourceId;
+  public String getAudioResourceUuid() {
+    return audioResourceUuid;
   }
 
-  public AudioDto setAudioResourceId(Long audioResourceId) {
-    this.audioResourceId = audioResourceId;
+  public AudioDto setAudioResourceUuid(String audioResourceUuid) {
+    this.audioResourceUuid = audioResourceUuid;
     return this;
   }
 
-  public Long getImageResourceId() {
-    return imageResourceId;
+  public String getImageResourceUuid() {
+    return imageResourceUuid;
   }
 
-  public AudioDto setImageResourceId(Long imageResourceId) {
-    this.imageResourceId = imageResourceId;
+  public AudioDto setImageResourceUuid(String imageResourceUuid) {
+    this.imageResourceUuid = imageResourceUuid;
     return this;
   }
 }

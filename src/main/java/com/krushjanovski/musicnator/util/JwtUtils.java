@@ -24,7 +24,8 @@ public class JwtUtils {
     return Jwts.builder().setSubject(authenticatedPrincipal.getUsername()).setIssuedAt(issuedAt)
         .setExpiration(expiresAt)
         .claim("roles", authenticatedPrincipal.getAuthorities().stream().map(
-            GrantedAuthority::getAuthority).collect(Collectors.toList())).signWith(
+            GrantedAuthority::getAuthority).collect(Collectors.toList()))
+        .claim("uuid", authenticatedPrincipal.getUser().getUuid()).signWith(
             SignatureAlgorithm.HS512, secretKey).compact();
   }
 
