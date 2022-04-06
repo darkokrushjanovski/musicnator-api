@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 
 public class JwtUtils {
@@ -23,7 +24,7 @@ public class JwtUtils {
     return Jwts.builder().setSubject(authenticatedPrincipal.getUsername()).setIssuedAt(issuedAt)
         .setExpiration(expiresAt)
         .claim("roles", authenticatedPrincipal.getAuthorities().stream().map(
-            GrantedAuthority::getAuthority).toList()).signWith(
+            GrantedAuthority::getAuthority).collect(Collectors.toList())).signWith(
             SignatureAlgorithm.HS512, secretKey).compact();
   }
 

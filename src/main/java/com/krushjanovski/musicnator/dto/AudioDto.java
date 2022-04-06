@@ -8,7 +8,8 @@ public class AudioDto extends BaseDto {
   private String description;
   private List<Long> categoryIds;
   private List<CategoryDto> categories;
-  private Long resourceId;
+  private Long audioResourceId;
+  private Long imageResourceId;
 
   public String getTitle() {
     return title;
@@ -47,12 +48,21 @@ public class AudioDto extends BaseDto {
     return this;
   }
 
-  public Long getResourceId() {
-    return resourceId;
+  public Long getAudioResourceId() {
+    return audioResourceId;
   }
 
-  public AudioDto setResourceId(Long resourceId) {
-    this.resourceId = resourceId;
+  public AudioDto setAudioResourceId(Long audioResourceId) {
+    this.audioResourceId = audioResourceId;
+    return this;
+  }
+
+  public Long getImageResourceId() {
+    return imageResourceId;
+  }
+
+  public AudioDto setImageResourceId(Long imageResourceId) {
+    this.imageResourceId = imageResourceId;
     return this;
   }
 }
