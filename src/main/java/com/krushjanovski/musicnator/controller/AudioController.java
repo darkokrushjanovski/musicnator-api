@@ -30,13 +30,13 @@ public class AudioController {
   @PostMapping
   public void createAudio(@RequestBody AudioDto audioDto) {
     service.createAudio(audioDto.getTitle(), audioDto.getDescription(), audioDto.getCategoryIds(),
-        audioDto.getResourceId());
+        audioDto.getAudioResourceId(), audioDto.getImageResourceId());
   }
 
   @PutMapping("/{id}")
   public void updateAudio(@PathVariable Long id, @RequestBody AudioDto audioDto) {
     service.updateAudio(id, audioDto.getTitle(), audioDto.getDescription(),
-        audioDto.getCategoryIds(), audioDto.getResourceId());
+        audioDto.getCategoryIds(), audioDto.getAudioResourceId(), audioDto.getImageResourceId());
   }
 
   @DeleteMapping("/{id}")
@@ -51,6 +51,6 @@ public class AudioController {
 
   @GetMapping
   public List<AudioDto> getAudios() {
-    return service.getAudios().stream().map(mapper::map).toList();
+    return service.getAudios().stream().map(mapper::map).collect(Collectors.toList());
   }
 }

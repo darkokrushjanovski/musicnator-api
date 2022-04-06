@@ -23,6 +23,6 @@ public class RoleController {
 
   @GetMapping
   public List<RoleDto> getRoles() {
-    return service.getRoles().stream().map(mapper::map).toList();
+    return service.getRoles().stream().map(mapper::map).collect(Collectors.toList());
   }
 }
