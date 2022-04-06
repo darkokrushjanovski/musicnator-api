@@ -2,8 +2,7 @@ package com.krushjanovski.musicnator.service;
 
 import com.krushjanovski.musicnator.entity.User;
 import com.krushjanovski.musicnator.repository.UserRepository;
-import java.util.Set;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.krushjanovski.musicnator.security.AuthenticatedPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,11 +18,10 @@ public class UserDetailsService implements
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public AuthenticatedPrincipal loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(username)
         .orElseThrow(() -> new UsernameNotFoundException(username));
 
-    return new org.springframework.security.core.userdetails.User(user.getEmail(),
-        user.getPassword(), Set.of(new SimpleGrantedAuthority(user.getRole().getName())));
+    return new AuthenticatedPrincipal(user);
   }
 }
