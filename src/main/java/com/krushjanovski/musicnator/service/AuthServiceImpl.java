@@ -25,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
   public AuthenticatedPrincipal getAuthenticatedPrincipal() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-    if (authentication == null || !authentication.isAuthenticated()) {
+    if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() instanceof String) {
       return null;
     }
     return ((AuthenticatedPrincipal) authentication.getPrincipal());

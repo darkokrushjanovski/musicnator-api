@@ -10,4 +10,6 @@ public interface RoleService {
   Role getRole(String uuid);
 
   List<Role> getRoles();
+
+  Role getRoleByName(String name);
 }

@@ -1,5 +1,6 @@
 package com.krushjanovski.musicnator.service;
 
+import com.krushjanovski.musicnator.dto.RegisterDto;
 import com.krushjanovski.musicnator.entity.User;
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface UserService {
   User getUser(String uuid);
 
   List<User> getUsers();
+
+  void registerUser(RegisterDto registerDto);
 }

@@ -1,5 +1,6 @@
 package com.krushjanovski.musicnator.service;
 
+import com.krushjanovski.musicnator.dto.RegisterDto;
 import com.krushjanovski.musicnator.entity.User;
 import com.krushjanovski.musicnator.exception.ConflictException;
 import com.krushjanovski.musicnator.exception.ResourceNotFoundException;
@@ -25,7 +26,10 @@ public class UserServiceImpl implements UserService {
   @Override
   public void createUser(String firstName, String lastName, String password, String email,
       String phoneNumber, String roleUuid) {
-    var role = roleService.getRole(roleUuid);
+    if (roleUuid != null) {
+      var role = roleService.getRole(roleUuid);
+    }
+    var role = roleService.getRoleByName("USER");
 
     repository.findByEmail(email).ifPresent((user) -> {
       throw new ConflictException(String.format("Email %s is already taken", email));
@@ -61,5 +65,10 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<User> getUsers() {
     return repository.findAll();
+  }
+
+  @Override
+  public void registerUser(RegisterDto r) {
+    createUser(r.getFirstName(), r.getLastName(), r.getPassword(), r.getEmail(), r.getPhoneNumber(), null);
   }
 }
