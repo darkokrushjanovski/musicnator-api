@@ -1,5 +1,7 @@
 package com.krushjanovski.musicnator.service;
 
+import com.krushjanovski.musicnator.dto.RegisterDto;
+import com.krushjanovski.musicnator.entity.Role;
 import com.krushjanovski.musicnator.entity.User;
 import com.krushjanovski.musicnator.exception.ConflictException;
 import com.krushjanovski.musicnator.exception.ResourceNotFoundException;
@@ -20,6 +22,13 @@ public class UserServiceImpl implements UserService {
     this.repository = repository;
     this.roleService = roleService;
     this.passwordEncoder = passwordEncoder;
+  }
+
+  @Override
+  public void createUser(String firstName, String lastName, String password, String email,
+      String phoneNumber) {
+    var role = roleService.getRoleByName("USER");
+    createUser(firstName, lastName, password, email, phoneNumber, role.getUuid());
   }
 
   @Override

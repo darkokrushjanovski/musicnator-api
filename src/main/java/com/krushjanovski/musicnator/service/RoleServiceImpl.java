@@ -35,4 +35,12 @@ public class RoleServiceImpl implements RoleService {
   public List<Role> getRoles() {
     return repository.findAll();
   }
+
+  @Override
+  public Role getRoleByName(String name) {
+    return repository.findByName(name)
+        .orElseThrow(
+            () -> new ResourceNotFoundException(
+                String.format("Role with name %s not found", name)));
+  }
 }
