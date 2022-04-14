@@ -26,13 +26,15 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void createUser(String firstName, String lastName, String password, String email,
+      String phoneNumber) {
+    var role = roleService.getRoleByName("USER");
+    createUser(firstName, lastName, password, email, phoneNumber, role.getUuid());
+  }
+
+  @Override
+  public void createUser(String firstName, String lastName, String password, String email,
       String phoneNumber, String roleUuid) {
-    Role role;
-    if (roleUuid == null) {
-      role = roleService.getRoleByName("USER");
-    } else {
-      role = roleService.getRole(roleUuid);
-    }
+    var role = roleService.getRole(roleUuid);
 
     repository.findByEmail(email).ifPresent((user) -> {
       throw new ConflictException(String.format("Email %s is already taken", email));
@@ -68,12 +70,5 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<User> getUsers() {
     return repository.findAll();
-  }
-
-  @Override
-  public void registerUser(RegisterDto registerDto) {
-    createUser(registerDto.getFirstName(), registerDto.getLastName(), registerDto.getPassword(),
-        registerDto.getEmail(), registerDto.getPhoneNumber(),
-        null);
   }
 }

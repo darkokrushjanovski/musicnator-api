@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/register")
 public class RegisterController {
+
   private final UserService service;
 
   public RegisterController(UserService service) {
@@ -17,8 +18,8 @@ public class RegisterController {
   }
 
   @PostMapping()
-  public void registerNewUser(@RequestBody RegisterDto registerDto){
-    service.registerUser(registerDto);
+  public void register(@RequestBody RegisterDto registerDto) {
+    service.createUser(registerDto.getFirstName(), registerDto.getLastName(),
+        registerDto.getPassword(), registerDto.getEmail(), registerDto.getPhoneNumber());
   }
-
 }
