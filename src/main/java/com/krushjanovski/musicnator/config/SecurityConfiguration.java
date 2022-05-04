@@ -2,6 +2,7 @@ package com.krushjanovski.musicnator.config;
 
 import com.krushjanovski.musicnator.security.JwtTokenFilter;
 import com.krushjanovski.musicnator.service.UserDetailsService;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -64,9 +65,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         new UrlBasedCorsConfigurationSource();
     CorsConfiguration config = new CorsConfiguration();
     config.setAllowCredentials(true);
-    config.addAllowedOrigin("*");
-    config.addAllowedHeader("*");
-    config.addAllowedMethod("*");
+    config.setAllowedOriginPatterns(List.of("*"));
+    config.setAllowedHeaders(List.of("*"));
+    config.setAllowedMethods(List.of("*"));
     source.registerCorsConfiguration("/**", config);
     return new CorsFilter(source);
   }
