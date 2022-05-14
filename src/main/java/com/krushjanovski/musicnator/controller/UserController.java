@@ -49,4 +49,8 @@ public class UserController {
   public List<UserDto> getUsers() {
     return service.getUsers().stream().map(mapper::map).collect(Collectors.toList());
   }
+  @GetMapping("/activeUser")
+  public UserDto getCurrentSessionUser(){
+    return service.getActiveUser();
+  }
 }

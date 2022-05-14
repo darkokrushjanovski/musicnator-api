@@ -1,12 +1,15 @@
 package com.krushjanovski.musicnator.service;
 
 import com.krushjanovski.musicnator.dto.RegisterDto;
+import com.krushjanovski.musicnator.dto.UserDto;
 import com.krushjanovski.musicnator.entity.Role;
 import com.krushjanovski.musicnator.entity.User;
 import com.krushjanovski.musicnator.exception.ConflictException;
 import com.krushjanovski.musicnator.exception.ResourceNotFoundException;
 import com.krushjanovski.musicnator.repository.UserRepository;
 import java.util.List;
+import java.util.Optional;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -70,5 +73,18 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<User> getUsers() {
     return repository.findAll();
+  }
+
+  @Override
+  public UserDto getActiveUser() {
+    String name = SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<User> user = repository.findByEmail(name);
+    UserDto userDto = (UserDto) new UserDto().setFirstName(user.get().getFirstName())
+        .setLastName(user.get().getLastName())
+        .setPhoneNumber(user.get().getPhoneNumber())
+        .setEmail(name)
+        .setCreatedAt(user.get().getCreatedAt());
+
+    return userDto;
   }
 }
