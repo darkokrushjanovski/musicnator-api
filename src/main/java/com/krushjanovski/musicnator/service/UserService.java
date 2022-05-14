@@ -8,6 +8,9 @@ import java.util.List;
 public interface UserService {
 
   void createUser(String firstName, String lastName, String password, String email,
+      String phoneNumber);
+
+  void createUser(String firstName, String lastName, String password, String email,
       String phoneNumber, String roleUuid);
 
   void updateUser(String uuid, String firstName, String lastName, String password,
@@ -16,8 +19,6 @@ public interface UserService {
   User getUser(String uuid);
 
   List<User> getUsers();
-
-  void registerUser(RegisterDto registerDto);
 
   UserDto getActiveUser();
 }
