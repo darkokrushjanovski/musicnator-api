@@ -79,11 +79,13 @@ public class UserServiceImpl implements UserService {
   public UserDto getActiveUser() {
     String name = SecurityContextHolder.getContext().getAuthentication().getName();
     Optional<User> user = repository.findByEmail(name);
-    UserDto userDto = (UserDto) new UserDto().setFirstName(user.get().getFirstName())
+    UserDto userDto = (UserDto) new UserDto()
+        .setFirstName(user.get().getFirstName())
         .setLastName(user.get().getLastName())
         .setPhoneNumber(user.get().getPhoneNumber())
         .setEmail(name)
-        .setCreatedAt(user.get().getCreatedAt());
+        .setCreatedAt(user.get().getCreatedAt())
+        .setUuid(user.get().getUuid());
 
     return userDto;
   }
