@@ -1,8 +1,7 @@
 package com.krushjanovski.musicnator.service;
 
-import com.krushjanovski.musicnator.dto.RegisterDto;
 import com.krushjanovski.musicnator.dto.UserDto;
-import com.krushjanovski.musicnator.entity.Role;
+import com.krushjanovski.musicnator.entity.Resource;
 import com.krushjanovski.musicnator.entity.User;
 import com.krushjanovski.musicnator.exception.ConflictException;
 import com.krushjanovski.musicnator.exception.ResourceNotFoundException;
@@ -19,25 +18,29 @@ public class UserServiceImpl implements UserService {
   private final UserRepository repository;
   private final RoleService roleService;
   private final PasswordEncoder passwordEncoder;
+  private final UploadService uploadService;
 
   public UserServiceImpl(UserRepository repository, RoleService roleService,
-      PasswordEncoder passwordEncoder) {
+      PasswordEncoder passwordEncoder, UploadService uploadService) {
     this.repository = repository;
     this.roleService = roleService;
     this.passwordEncoder = passwordEncoder;
+    this.uploadService = uploadService;
   }
 
   @Override
   public void createUser(String firstName, String lastName, String password, String email,
-      String phoneNumber) {
+      String phoneNumber, String imageResourceUuid) {
     var role = roleService.getRoleByName("USER");
-    createUser(firstName, lastName, password, email, phoneNumber, role.getUuid());
+    createUser(firstName, lastName, password, email, phoneNumber, role.getUuid(),
+        imageResourceUuid);
   }
 
   @Override
   public void createUser(String firstName, String lastName, String password, String email,
-      String phoneNumber, String roleUuid) {
+      String phoneNumber, String roleUuid, String imageResourceUuid) {
     var role = roleService.getRole(roleUuid);
+    var imageResource = uploadService.getResource(imageResourceUuid);
 
     repository.findByEmail(email).ifPresent((user) -> {
       throw new ConflictException(String.format("Email %s is already taken", email));
@@ -45,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     var user = new User().setFirstName(firstName).setLastName(lastName).setEmail(email)
         .setPassword(passwordEncoder.encode(password))
-        .setPhoneNumber(phoneNumber).setRole(role);
+        .setPhoneNumber(phoneNumber).setRole(role).setImageResource(imageResource);
 
     repository.save(user);
   }

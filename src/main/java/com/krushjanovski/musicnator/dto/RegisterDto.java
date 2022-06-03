@@ -1,11 +1,13 @@
 package com.krushjanovski.musicnator.dto;
 
 public class RegisterDto {
+
   private String firstName;
   private String lastName;
   private String email;
   private String phoneNumber;
   private String password;
+  private String imageResourceUuid;
 
   public String getFirstName() {
     return firstName;
@@ -52,5 +54,12 @@ public class RegisterDto {
     return this;
   }
 
+  public String getImageResourceUuid() {
+    return imageResourceUuid;
+  }
 
+  public RegisterDto setImageResourceUuid(String imageResourceUuid) {
+    this.imageResourceUuid = imageResourceUuid;
+    return this;
+  }
 }

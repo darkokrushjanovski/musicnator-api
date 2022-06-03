@@ -2,6 +2,7 @@ package com.krushjanovski.musicnator.entity;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @javax.persistence.Entity
 public class User extends Entity {
@@ -15,6 +16,11 @@ public class User extends Entity {
   @ManyToOne
   @JoinColumn(name = "role_id")
   private Role role;
+
+  @OneToOne
+  @JoinColumn(name = "resource_uuid")
+  private Resource imageResource;
+
 
   public String getFirstName() {
     return firstName;
@@ -67,6 +73,15 @@ public class User extends Entity {
 
   public User setRole(Role role) {
     this.role = role;
+    return this;
+  }
+
+  public Resource getImageResource() {
+    return imageResource;
+  }
+
+  public User setImageResource(Resource imageResource) {
+    this.imageResource = imageResource;
     return this;
   }
 }
