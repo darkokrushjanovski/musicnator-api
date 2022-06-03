@@ -9,6 +9,7 @@ public class UserDto extends BaseDto {
   private String phoneNumber;
   private String roleUuid;
   private RoleDto role;
+  private String imageResourceUuid;
 
   public String getFirstName() {
     return firstName;
@@ -70,6 +71,15 @@ public class UserDto extends BaseDto {
 
   public UserDto setRole(RoleDto role) {
     this.role = role;
+    return this;
+  }
+
+  public String getImageResourceUuid() {
+    return imageResourceUuid;
+  }
+
+  public UserDto setImageResourceUuid(String imageResourceUuid) {
+    this.imageResourceUuid = imageResourceUuid;
     return this;
   }
 }

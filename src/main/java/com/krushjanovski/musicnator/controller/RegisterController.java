@@ -20,6 +20,7 @@ public class RegisterController {
   @PostMapping()
   public void register(@RequestBody RegisterDto registerDto) {
     service.createUser(registerDto.getFirstName(), registerDto.getLastName(),
-        registerDto.getPassword(), registerDto.getEmail(), registerDto.getPhoneNumber());
+        registerDto.getPassword(), registerDto.getEmail(), registerDto.getPhoneNumber(),
+        registerDto.getImageResourceUuid());
   }
 }
