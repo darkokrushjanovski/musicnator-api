@@ -1,5 +1,6 @@
 package com.krushjanovski.musicnator.entity;
 
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -17,8 +18,7 @@ public class User extends Entity {
   @JoinColumn(name = "role_id")
   private Role role;
 
-  @OneToOne
-  @JoinColumn(name = "resource_uuid")
+  @OneToOne(fetch = FetchType.LAZY)
   private Resource imageResource;
 
 

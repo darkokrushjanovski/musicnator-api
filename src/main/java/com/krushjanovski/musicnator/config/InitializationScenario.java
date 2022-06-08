@@ -36,7 +36,7 @@ public class InitializationScenario implements InitializingBean {
     roles = roleService.getRoles();
 
     userService.createUser("Stefan", "Kondinski", "TEST12345", "kondinskis@gmail.com", "075880950",
-        roles.get(0).getUuid(), "Uuid for random image");
+        roles.get(0).getUuid(), null);
 
     List.of(
             new Category().setName("Hip Hop").setDescription("Hip Hop Description"),

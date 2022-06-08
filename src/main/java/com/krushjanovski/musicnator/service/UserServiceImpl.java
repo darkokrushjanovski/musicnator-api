@@ -39,12 +39,15 @@ public class UserServiceImpl implements UserService {
   @Override
   public void createUser(String firstName, String lastName, String password, String email,
       String phoneNumber, String roleUuid, String imageResourceUuid) {
+    Resource imageResource = null;
     var role = roleService.getRole(roleUuid);
-    var imageResource = uploadService.getResource(imageResourceUuid);
 
     repository.findByEmail(email).ifPresent((user) -> {
       throw new ConflictException(String.format("Email %s is already taken", email));
     });
+    if (imageResourceUuid != null) {
+      imageResource = uploadService.getResource(imageResourceUuid);
+    }
 
     var user = new User().setFirstName(firstName).setLastName(lastName).setEmail(email)
         .setPassword(passwordEncoder.encode(password))
