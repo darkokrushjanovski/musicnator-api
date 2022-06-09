@@ -10,6 +10,8 @@ public interface UserMapper {
 
   @Mapping(target = "password", ignore = true)
   @Mapping(target = "roleUuid", ignore = true)
+
   @Mapping(target = "imageResourceUuid", source= "imageResource.uuid")
+
   UserDto map(User user);
 }

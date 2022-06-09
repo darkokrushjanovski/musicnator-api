@@ -15,8 +15,8 @@ public class UploadServiceImpl implements UploadService {
   }
 
   @Override
-  public Resource uploadResource(byte[] content) {
-    Resource resource = new Resource().setContent(content);
+  public Resource uploadResource(String name, String type, byte[] content) {
+    Resource resource = new Resource().setName(name).setType(type).setContent(content);
     return repository.save(resource);
   }
 
