@@ -59,4 +59,10 @@ public class AudioController {
   public List<AudioDto> getAudiosByUser(@PathVariable String uuid) {
     return service.getAudiosByUserUuid(uuid).stream().map(mapper::map).collect(Collectors.toList());
   }
+
+  @GetMapping("/categories/{title}")
+  public List<AudioDto> getAudiosByCategory(@PathVariable String title) {
+    return service.getAudiosByCategory(title).stream().map(mapper::map)
+        .collect(Collectors.toList());
+  }
 }
