@@ -18,10 +18,10 @@ public class User extends Entity {
   @JoinColumn(name = "role_id")
   private Role role;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "resource_uuid")
 
-  @OneToOne(fetch = FetchType.LAZY)
+
 
   private Resource imageResource;
 
