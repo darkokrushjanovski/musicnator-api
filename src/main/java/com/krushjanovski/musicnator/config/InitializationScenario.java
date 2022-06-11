@@ -7,6 +7,7 @@ import com.krushjanovski.musicnator.service.RoleService;
 import com.krushjanovski.musicnator.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -35,7 +36,11 @@ public class InitializationScenario implements InitializingBean {
     roles = roleService.getRoles();
 
     userService.createUser("Stefan", "Kondinski", "TEST12345", "kondinskis@gmail.com", "075880950",
-        roles.get(0).getUuid());
+
+
+
+        roles.get(0).getUuid(),null);
+
 
     List.of(
             new Category().setName("Hip Hop").setDescription("Hip Hop Description"),

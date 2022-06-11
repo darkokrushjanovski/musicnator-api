@@ -31,7 +31,8 @@ public class UserController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void createUser(@RequestBody UserDto userDto) {
     service.createUser(userDto.getFirstName(), userDto.getLastName(), userDto.getPassword(),
-        userDto.getEmail(), userDto.getPhoneNumber(), userDto.getRoleUuid());
+        userDto.getEmail(), userDto.getPhoneNumber(), userDto.getRoleUuid(),
+        userDto.getImageResourceUuid());
   }
 
   @PutMapping("/{uuid}")
@@ -49,8 +50,9 @@ public class UserController {
   public List<UserDto> getUsers() {
     return service.getUsers().stream().map(mapper::map).collect(Collectors.toList());
   }
+
   @GetMapping("/activeUser")
-  public UserDto getCurrentSessionUser(){
+  public UserDto getCurrentSessionUser() {
     return service.getActiveUser();
   }
 }
