@@ -1,6 +1,7 @@
 package com.krushjanovski.musicnator.service;
 
 import com.krushjanovski.musicnator.entity.Audio;
+import com.krushjanovski.musicnator.entity.Category;
 import com.krushjanovski.musicnator.entity.Resource;
 import com.krushjanovski.musicnator.exception.ResourceNotFoundException;
 import com.krushjanovski.musicnator.repository.AudioRepository;
@@ -74,5 +75,12 @@ public class AudioServiceImpl implements AudioService {
   @Override
   public List<Audio> getAudiosByUserUuid(String userUuid) {
     return repository.findAllByCreatedBy(userUuid);
+  }
+
+  @Override
+  public List<Audio> getAudiosByCategory(String categoryTitle) {
+    Category category = categoryService.getCategoryByTitle(categoryTitle);
+    List<Audio> audios = repository.findAllByCategoriesIn(List.of(category));
+    return audios;
   }
 }

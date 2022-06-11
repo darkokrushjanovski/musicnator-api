@@ -56,4 +56,11 @@ public class CategoryServiceImpl implements CategoryService {
   public List<Category> getCategories() {
     return repository.findAll();
   }
+
+  @Override
+  public Category getCategoryByTitle(String title) {
+    return repository.findByName(title).orElseThrow(
+        () -> new ResourceNotFoundException(
+            String.format("Category with title %s not found", title)));
+  }
 }

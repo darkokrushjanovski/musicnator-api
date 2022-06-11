@@ -18,4 +18,6 @@ public interface AudioService {
   List<Audio> getAudios();
 
   List<Audio> getAudiosByUserUuid(String userUuid);
+
+  List<Audio> getAudiosByCategory(String categoryTitle);
 }

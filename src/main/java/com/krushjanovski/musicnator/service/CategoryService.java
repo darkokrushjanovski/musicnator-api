@@ -16,4 +16,6 @@ public interface CategoryService {
   List<Category> getCategoriesByUuid(List<String> categoryUuids);
 
   List<Category> getCategories();
+
+  Category getCategoryByTitle(String title);
 }
