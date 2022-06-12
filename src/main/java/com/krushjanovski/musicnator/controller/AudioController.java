@@ -62,7 +62,8 @@ public class AudioController {
 
   @GetMapping("/categories/{title}")
   public List<AudioDto> getAudiosByCategory(@PathVariable String title) {
-    return service.getAudiosByCategory(title).stream().map(mapper::map)
+    return service.getAudiosByCategory(title).stream().map(audioUserProjection -> mapper.map(
+            audioUserProjection.getAudio(), audioUserProjection.getUser()))
         .collect(Collectors.toList());
   }
 }

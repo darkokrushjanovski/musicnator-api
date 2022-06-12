@@ -5,6 +5,7 @@ import com.krushjanovski.musicnator.entity.Category;
 import com.krushjanovski.musicnator.entity.Resource;
 import com.krushjanovski.musicnator.exception.ResourceNotFoundException;
 import com.krushjanovski.musicnator.repository.AudioRepository;
+import com.krushjanovski.musicnator.repository.AudioUserProjection;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -78,9 +79,8 @@ public class AudioServiceImpl implements AudioService {
   }
 
   @Override
-  public List<Audio> getAudiosByCategory(String categoryTitle) {
+  public List<AudioUserProjection> getAudiosByCategory(String categoryTitle) {
     Category category = categoryService.getCategoryByTitle(categoryTitle);
-    List<Audio> audios = repository.findAllByCategoriesIn(List.of(category));
-    return audios;
+    return repository.findAllByCategory(category.getUuid());
   }
 }

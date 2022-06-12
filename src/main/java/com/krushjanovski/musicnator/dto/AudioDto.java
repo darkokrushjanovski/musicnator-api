@@ -10,6 +10,7 @@ public class AudioDto extends BaseDto {
   private List<CategoryDto> categories;
   private String audioResourceUuid;
   private String imageResourceUuid;
+  private UserDto user;
 
   public String getTitle() {
     return title;
@@ -63,6 +64,15 @@ public class AudioDto extends BaseDto {
 
   public AudioDto setImageResourceUuid(String imageResourceUuid) {
     this.imageResourceUuid = imageResourceUuid;
+    return this;
+  }
+
+  public UserDto getUser() {
+    return user;
+  }
+
+  public AudioDto setUser(UserDto user) {
+    this.user = user;
     return this;
   }
 }

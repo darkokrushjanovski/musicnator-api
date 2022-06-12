@@ -1,6 +1,7 @@
 package com.krushjanovski.musicnator.service;
 
 import com.krushjanovski.musicnator.entity.Audio;
+import com.krushjanovski.musicnator.repository.AudioUserProjection;
 import java.util.List;
 
 public interface AudioService {
@@ -19,5 +20,5 @@ public interface AudioService {
 
   List<Audio> getAudiosByUserUuid(String userUuid);
 
-  List<Audio> getAudiosByCategory(String categoryTitle);
+  List<AudioUserProjection> getAudiosByCategory(String categoryTitle);
 }
